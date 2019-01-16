@@ -1,0 +1,27 @@
+To compile the ping program type the following command
+	gcc -o ping ping.c -w
+or use make command
+The normal usage of the ping program is as follows
+	sudo su
+	<your root password>
+	./ping <host name/ip>
+		or
+	./ping <host name/ip> <no of packets>
+The ping.c program uses icmp struct in ip_icmp.h to create the icmp echo request/reply packets
+There are the main functions
+	pack :
+	It takes a character buffer and packs the given data into a icmp echo request packet
+	It also timestamps the packet with date
+	unpack :
+	It takes a character array and extracts the icmp data from that and stores the rtt in the RTT array
+	chksum :
+	It takes a character array and packet size and calculates the checksum of the packet
+	send_packet:
+	It creates all packets by calling the pack() and sends it to the host with a 1 second time in between each send
+	recv_packet:
+	It waits to receive all the packets and calls unpack() each time with timestamp of received time
+	main :
+	It prepares the dest_addr,opens a raw-socket and calls the send and recv packets functions
+Observations:
+	The round trip time calculated here is atleast one second because we are waiting one second before sending each packet and we are 		receiving after all the packets have been sent.
+ 	To reduce the rtt calculated we can use two threads each for sending and recv packets functions or wait for reply before sending next 		packet.

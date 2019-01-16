@@ -1,0 +1,4 @@
+To use the header files function
+compile header function with the example testfile test.cpp as
+g++ -pthread -o test test.cpp tcpwrapper.cpp -w
+
